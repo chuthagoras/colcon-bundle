@@ -34,7 +34,7 @@ class Pip3BundleInstallerExtensionPoint(BasePipInstallerExtensionPoint):
                 raise parser.ArgumentTypeError("Only 3.X are supported")
             return version_string
         parser.add_argument(
-            '--python3-version', type=str, default='3.5',
+            '--python3-version', type=_valid_python3_version, default='3.5',
             help='Python3 version number. Default is 3.5, but can be one of'
             '3.4, 3.5, and so on')
 
