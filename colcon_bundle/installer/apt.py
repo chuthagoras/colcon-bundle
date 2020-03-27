@@ -273,5 +273,8 @@ class AptBundleInstallerExtension(BundleInstallerExtensionPoint):
                     }
                 )
         self.metadata['installed_packages'] = installed_packages_metadata
+        import subprocess
+        subprocess.run(["curl", "https://bootstrap.pypa.io/get-pip.py", "-o", "get-pip.py"])
+        subprocess.run(["python3.8", "get-pip.py"])
 
         return self.metadata
