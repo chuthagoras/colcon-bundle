@@ -74,9 +74,7 @@ class BasePipInstallerExtensionPoint(BundleInstallerExtensionPoint):
                         metadata = json.load(f)
                         return metadata
 
-        subprocess.run(["curl", "https://bootstrap.pypa.io/get-pip.py", "-o", "get-pip.py"])
-        subprocess.run([self._python_path, "get-pip.py"])
-
+        subprocess.call([self._python_path, '-m', 'ensurepip'])
         python_pip_args = [self._python_path, '-m', 'pip']
         pip_install_args = python_pip_args + ['install']
         subprocess.check_call(pip_install_args + ['-U', 'pip', 'setuptools'])
