@@ -45,4 +45,5 @@ class Pip3BundleInstallerExtensionPoint(BasePipInstallerExtensionPoint):
             self.context.prefix_path, 'usr', 'bin', ('python' +
                 self.context.args.python3_version))
         self._pip_args = self.context.args.pip3_args
+        self._upgrade_pip = True
         self.additional_requirements = self.context.args.pip3_requirements
