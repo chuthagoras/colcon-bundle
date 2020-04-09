@@ -13,6 +13,9 @@ logger = colcon_logger.getChild(__name__)
 # Size in bytes
 MAX_METADATA_SIZE = 4 * 1024 * 1024
 
+# tarfile format used in bundlefiles
+TARFILE_FORMAT = tarfile.GNU_FORMAT
+
 
 class Bundle:
     """Provides an interface to application bundle files."""
@@ -27,7 +30,7 @@ class Bundle:
         :param name: path to the bundle archive
         :param mode: mode to open file as
         """
-        self.tarfile = tarfile.open(name, mode)
+        self.tarfile = tarfile.open(name, mode, format=TARFILE_FORMAT)
         self.overlays = []
         self.metadata = []
         self.mode = mode
@@ -63,14 +66,14 @@ class Bundle:
             with open(version_path, 'w') as v:
                 v.write('2')
             self.tarfile.add(version_path, arcname='version')
-            logger.debug('Start: metadta')
+            logger.debug('Start: metadata')
             offset = MAX_METADATA_SIZE
             overlay_metadata = []
             for overlay in self.overlays:
                 name = os.path.basename(overlay)
                 checksum = filechecksum(overlay)
                 info = self.tarfile.gettarinfo(overlay, arcname=name)
-                header_size = len(info.tobuf())
+                header_size = len(info.tobuf(TARFILE_FORMAT))
                 file_size = os.stat(overlay).st_size
                 overlay_metadata.append({
                     'name': name,
@@ -115,6 +118,10 @@ class Bundle:
             self.tarfile.close()
             logger.debug('End: Bundle')
             self.closed = True
+
+    def close(self):  # noqa: N806
+        """Close the archive."""
+        self._close()
 
     def _check(self, mode=None):
         """Check if Bundle is still open. And mode is valid."""
