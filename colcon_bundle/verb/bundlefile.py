@@ -55,7 +55,7 @@ class Bundle:
         self._check('w')
         self.overlays.append(path)
 
-    def close(self):  # noqa: N806
+    def _close(self):  # noqa: N806
         """Close the archive."""
         if 'w' in self.mode:
             logger.debug('Start: Bundle')
