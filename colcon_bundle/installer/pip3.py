@@ -6,22 +6,22 @@ import os
 from colcon_bundle.installer.base_pip_installer import \
     BasePipInstallerExtensionPoint
 
+def __valid_python3_version(version_string):
+    try:
+        version_float = float(version_string)
+    except ValueError:
+        raise parser.ArgumentTypeError(version_string + " cannot be "
+                "converted to a float... Make sure it is of form 3.X")
+    if version_float < 3.4:
+        raise parser.ArgumentTypeError("Only 3.4 and higher are supported")
+    elif version_float >= 4:
+        raise parser.ArgumentTypeError("Python3 version only")
+    else:
+        return version_string
 
 class Pip3BundleInstallerExtensionPoint(BasePipInstallerExtensionPoint):
     """Python 3 pip installer."""
 
-    def __valid_python3_version(version_string):
-        try:
-            version_float = float(version_string)
-        except ValueError:
-            raise parser.ArgumentTypeError(version_string + " cannot be "
-                    "converted to a float... Make sure it is of form 3.X")
-        if version_float < 3.4:
-            raise parser.ArgumentTypeError("Only 3.4 and higher are supported")
-        elif version_float >= 4:
-            raise parser.ArgumentTypeError("Python3 version only")
-        else:
-            return version_string
 
     def add_arguments(self, *, parser):  # noqa: D102
         parser.add_argument(
