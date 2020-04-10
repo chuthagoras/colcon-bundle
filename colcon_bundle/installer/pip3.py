@@ -22,7 +22,7 @@ class Pip3BundleInstallerExtensionPoint(BasePipInstallerExtensionPoint):
             help='Path to a requirements.txt. All packages in the file'
                  'will be installed into Python3 in the bundle')
         parser.add_argument(
-            '--python3-version', type=self.str, default='3.5',
+            '--python3-version', type=str, default='3.5',
             help='Python3 version number. Default is 3.5, but can be one of ' +
                 '3.4, 3.5, and so on')
 
