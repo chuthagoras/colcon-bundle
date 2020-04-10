@@ -61,6 +61,6 @@ class PythonBundleTask(TaskExtensionPoint):
                 )
 
             # TODO: The Pip managers should be doing this
-            apt = args.installers['apt']
-            apt.add_to_install_list('libpython3-dev')
-            apt.add_to_install_list('python3-pip')
+            #apt = args.installers['apt']
+            #apt.add_to_install_list('libpython3-dev')
+            #apt.add_to_install_list('python3-pip')
