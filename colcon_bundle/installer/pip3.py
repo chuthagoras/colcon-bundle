@@ -35,3 +35,6 @@ class Pip3BundleInstallerExtensionPoint(BasePipInstallerExtensionPoint):
         if self.context.args.python3_version != '3.5':
             self._upgrade_pip = True
         self.additional_requirements = self.context.args.pip3_requirements
+
+    def version(self):
+        return self.context.args.python3_version

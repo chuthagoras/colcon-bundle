@@ -28,3 +28,6 @@ class PipBundleInstallerExtensionPoint(BasePipInstallerExtensionPoint):
             self.context.prefix_path, 'usr', 'bin', 'python2')
         self._pip_args = self.context.args.pip_args
         self.additional_requirements = self.context.args.pip_requirements
+
+    def version(self):
+        return '2.7'
