@@ -39,6 +39,9 @@ class Pip3BundleInstallerExtensionPoint(BasePipInstallerExtensionPoint):
             help='Python3 version number. Default is 3.5, but can be one of'
             '3.4, 3.5, and so on')
 
+    def version(self):
+        return self.context.args.python3_version
+
     def initialize(self, context):  # noqa: D102
         super().initialize(context)
         self._python_path = os.path.join(
