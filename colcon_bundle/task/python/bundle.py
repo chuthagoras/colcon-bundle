@@ -60,6 +60,8 @@ class PythonBundleTask(TaskExtensionPoint):
                     dependency.name
                 )
 
+            print("==========Pip version=========")
+            print(pip.version())
             # TODO: The Pip managers should be doing this
             if pip.version() == '3.5':
                 apt = args.installers['apt']

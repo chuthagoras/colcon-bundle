@@ -40,6 +40,8 @@ class Pip3BundleInstallerExtensionPoint(BasePipInstallerExtensionPoint):
             '3.4, 3.5, and so on')
 
     def version(self):
+        print("===========version==========")
+        print(self.context.args.python3_version)
         return self.context.args.python3_version
 
     def initialize(self, context):  # noqa: D102
