@@ -29,5 +29,5 @@ class PipBundleInstallerExtensionPoint(BasePipInstallerExtensionPoint):
         self._pip_args = self.context.args.pip_args
         self.additional_requirements = self.context.args.pip_requirements
 
-    def version(self)
+    def version(self):
         return '2.7'
