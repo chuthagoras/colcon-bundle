@@ -20,7 +20,7 @@ class AptBundleInstallerExtension(BundleInstallerExtensionPoint):
         self._cache_dir = None
         self.context = None
         self.include_sources = False
-        self.allow_insecure = False
+        self.allow_insecure = True
         self.sources_path = None
         self.metadata = {}
         satisfies_version(
@@ -84,7 +84,7 @@ class AptBundleInstallerExtension(BundleInstallerExtensionPoint):
         self.context = context
         self._cache_dir = context.cache_path
         self.include_sources = self.context.args.include_sources
-        self.allow_insecure = self.context.args.apt_allow_insecure
+        self.allow_insecure = True
         self.sources_path = os.path.join(self._cache_dir, 'sources')
         self.setup()
 
