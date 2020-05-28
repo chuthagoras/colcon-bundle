@@ -28,6 +28,7 @@ class BasePipInstallerExtensionPoint(BundleInstallerExtensionPoint):
         self._cache_path = None
         self._python_path = None
         self._pip_args = None
+        self._upgrade_pip = False
         self.additional_requirements = None
 
     def initialize(self, context):  # noqa: D102
@@ -80,6 +81,12 @@ class BasePipInstallerExtensionPoint(BundleInstallerExtensionPoint):
                     with open(metadata_file, 'r') as f:
                         metadata = json.load(f)
                         return metadata
+
+        print("============Upgrade pip=================")
+        print(self._python_path)
+        print(self._upgrade_pip)
+        if self._upgrade_pip:
+            subprocess.check_call([self._python_path, '-m', 'ensurepip', '--upgrade'])
 
         python_pip_args = [self._python_path, '-m', 'pip']
         pip_install_args = python_pip_args + ['install']

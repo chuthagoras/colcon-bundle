@@ -71,5 +71,3 @@ class AptInstallerTests(unittest.TestCase):
     def test_apt_add_to_install_list(self):
         package_name = "foo"
         self._run_add_to_install_list_test(package_name, '')
-
-
