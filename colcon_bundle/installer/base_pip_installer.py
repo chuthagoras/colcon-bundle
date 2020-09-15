@@ -82,6 +82,9 @@ class BasePipInstallerExtensionPoint(BundleInstallerExtensionPoint):
                         metadata = json.load(f)
                         return metadata
 
+        print("============Upgrade pip=================")
+        print(self._python_path)
+        print(self._upgrade_pip)
         if self._upgrade_pip:
             subprocess.check_call([self._python_path, '-m', 'ensurepip', '--upgrade'])
 

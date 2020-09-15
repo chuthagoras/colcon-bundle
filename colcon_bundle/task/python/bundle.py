@@ -60,6 +60,8 @@ class PythonBundleTask(TaskExtensionPoint):
                     dependency.name
                 )
 
+            print("==========Pip version=========")
+            print(pip.version())
             # TODO: The Pip managers should be doing this
 
             apt = args.installers['apt']
@@ -68,3 +70,4 @@ class PythonBundleTask(TaskExtensionPoint):
                 apt.add_to_install_list('python3-pip')
             elif pip.version() == '3.8':
                 apt.add_to_install_list('python-pip')
+

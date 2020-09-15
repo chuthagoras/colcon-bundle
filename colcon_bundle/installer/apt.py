@@ -48,6 +48,9 @@ class AptBundleInstallerExtension(BundleInstallerExtensionPoint):
         if get_ubuntu_distribution_version() == 'bionic':
             sources_list_path = os.path.join(assets_directory,
                                              'bionic.sources.list')
+        elif get_ubuntu_distribution_version() == 'focal':
+            sources_list_path = os.path.join(assets_directory,
+                                             'focal.sources.list')
 
         parser.add_argument(
             '--apt-package-blacklist', default=blacklist_path,
@@ -117,6 +120,7 @@ class AptBundleInstallerExtension(BundleInstallerExtensionPoint):
         apt.apt_pkg.config.set('Acquire::BrokenProxy', 'true')
         apt.apt_pkg.config.set('Acquire::http::Pipeline-Depth', '0')
         apt.apt_pkg.config.set('Acquire::http::No-Cache', 'true')
+        apt.apt_pkg.config.set('Acquire::http::Retries', '3')
 
         if self.allow_insecure:
             apt.apt_pkg.config.set(
@@ -153,6 +157,13 @@ class AptBundleInstallerExtension(BundleInstallerExtensionPoint):
             raise RuntimeError('Failed to fetch from repositories. Did '
                                'you set your keys correctly?')
         self._cache.open()
+
+        # Workaround for pip-requirements not installing python-pip
+        self.add_to_install_list('python3-pip')
+
+        # Currently not available in Focal
+        if get_ubuntu_distribution_version() != 'focal':
+            self.add_to_install_list('python-pip')
 
     def _separate_version_information(self, package_name):
         if '=' not in package_name:
@@ -227,6 +238,10 @@ class AptBundleInstallerExtension(BundleInstallerExtensionPoint):
         # come with the
         # base distribution of the OS. We remove them from the install list
         # here.
+
+        # TODO: REMOVE
+        self.add_to_install_list('python-pip')
+
         with open(self.context.args.apt_package_blacklist, 'rt') as blacklist:
             blacklisted_packages = [line.rstrip('\n') for line in blacklist]
 
