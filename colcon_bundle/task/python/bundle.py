@@ -63,7 +63,6 @@ class PythonBundleTask(TaskExtensionPoint):
             print("==========Pip version=========")
             print(pip.version())
             # TODO: The Pip managers should be doing this
-            if pip.version() == '3.5':
-                apt = args.installers['apt']
-                apt.add_to_install_list('libpython3-dev')
-                apt.add_to_install_list('python3-pip')
+            apt = args.installers['apt']
+            apt.add_to_install_list('libpython3-dev')
+            apt.add_to_install_list('python3-pip')
