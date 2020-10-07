@@ -78,8 +78,9 @@ class BasePipInstallerExtensionPoint(BundleInstallerExtensionPoint):
         print("============Upgrade pip=================")
         print(self._python_path)
         print(self._upgrade_pip)
-        if self._upgrade_pip:
-            subprocess.check_call([self._python_path, '-m', 'ensurepip', '--upgrade'])
+        
+        #if self._upgrade_pip:
+        #    subprocess.check_call([self._python_path, '-m', 'ensurepip', '--upgrade'])
 
         python_pip_args = [self._python_path, '-m', 'pip']
         pip_install_args = python_pip_args + ['install']
